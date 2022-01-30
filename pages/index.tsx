@@ -1,64 +1,81 @@
 import type { NextPage } from "next";
-import Link from "next/link";
-import { signIn } from "next-auth/react";
-import Image from "next/image";
+import Navbar from "../components/navbar";
 
-const Home: NextPage = () => {
+const Index: NextPage = () => {
   return (
-    <div className="relative">
-      <div className="navbar mb-2 shadow-lg bg-neutral text-neutral-content rounded-box">
-        <div className="flex-none">
-          <button className="btn btn-square btn-ghost">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              className="inline-block w-6 h-6 stroke-current"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              ></path>
-            </svg>
-          </button>
-        </div>
-        <div className="flex-1 px-2 mx-2">
-          <span className="text-lg font-bold">With two icons</span>
-        </div>
-        <div className="flex-none">
-          <button className="btn btn-square btn-ghost">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              className="inline-block w-6 h-6 stroke-current"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-              ></path>
-            </svg>
-          </button>
+    <div>
+      <Navbar></Navbar>
+      <div className="hero min-h-screen bg-sky-100">
+        <div className="flex-col justify-center hero-content lg:flex-row">
+          <div className="text-center lg:text-left p-10">
+            <h1 className="mb-5 text-3xl font-bold text-teal-500">
+              Hello there
+            </h1>
+            <p className="mb-5 text-justify">
+              We are a platform that provides a bridge between a Event Manager
+              and yourself. You can view the full Timelines and keep yourself
+              updated with what is happening on your event field.
+            </p>
+          </div>
+          <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+            <div className="card-body mx-auto text-extrabold text-xl">
+              <h2>Credentials</h2>
+            </div>
+            <div className="card-body">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Event Code</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Event Code"
+                  className="input input-bordered"
+                />
+              </div>
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Password</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="password"
+                  className="input input-bordered"
+                />
+              </div>
+              <div className="form-control mt-6">
+                <input
+                  type="button"
+                  value="Check"
+                  className="btn border-none bg-teal-500"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <footer className="p-10 footer bg-neutral text-neutral-content bottom-0">
+      <footer className="p-10 footer text-base-content bg-teal-500">
         <div>
-          <span className="footer-title">Services</span>
-          <a className="link link-hover">Branding</a>
-          <a className="link link-hover">Design</a>
-          <a className="link link-hover">Marketing</a>
-          <a className="link link-hover">Advertisement</a>
+          <svg
+            width="50"
+            height="50"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            fillRule="evenodd"
+            clipRule="evenodd"
+            className="fill-current"
+          >
+            <path d="M22.672 15.226l-2.432.811.841 2.515c.33 1.019-.209 2.127-1.23 2.456-1.15.325-2.148-.321-2.463-1.226l-.84-2.518-5.013 1.677.84 2.517c.391 1.203-.434 2.542-1.831 2.542-.88 0-1.601-.564-1.86-1.314l-.842-2.516-2.431.809c-1.135.328-2.145-.317-2.463-1.229-.329-1.018.211-2.127 1.231-2.456l2.432-.809-1.621-4.823-2.432.808c-1.355.384-2.558-.59-2.558-1.839 0-.817.509-1.582 1.327-1.846l2.433-.809-.842-2.515c-.33-1.02.211-2.129 1.232-2.458 1.02-.329 2.13.209 2.461 1.229l.842 2.515 5.011-1.677-.839-2.517c-.403-1.238.484-2.553 1.843-2.553.819 0 1.585.509 1.85 1.326l.841 2.517 2.431-.81c1.02-.33 2.131.211 2.461 1.229.332 1.018-.21 2.126-1.23 2.456l-2.433.809 1.622 4.823 2.433-.809c1.242-.401 2.557.484 2.557 1.838 0 .819-.51 1.583-1.328 1.847m-8.992-6.428l-5.01 1.675 1.619 4.828 5.011-1.674-1.62-4.829z"></path>
+          </svg>
+          <p>
+            Sudo Coders Ltd.
+            <br />
+            Providing reliable tech since 2022
+          </p>
         </div>
         <div>
           <span className="footer-title">Company</span>
           <a className="link link-hover">About us</a>
           <a className="link link-hover">Contact</a>
-          <a className="link link-hover">Jobs</a>
-          <a className="link link-hover">Press kit</a>
         </div>
         <div>
           <span className="footer-title">Legal</span>
@@ -70,127 +87,130 @@ const Home: NextPage = () => {
     </div>
   );
 };
+
+export default Index;
+// import type { NextPage } from "next";
+// import Link from "next/link";
+// import Image from "next/image";
+// import { signIn, useSession, signOut } from "next-auth/react";
+// import { MoonIcon, SunIcon } from "@heroicons/react/solid";
+// import { ReactNode } from "react";
+// import {
+//   Box,
+//   Flex,
+//   Avatar,
+//   Link as CLink,
+//   Button,
+//   Menu,
+//   MenuButton,
+//   MenuList,
+//   MenuItem,
+//   MenuDivider,
+//   useDisclosure,
+//   useColorModeValue,
+//   Stack,
+//   useColorMode,
+//   Center,
+// } from "@chakra-ui/react";
+
+// const NavLink = ({ children }: { children: ReactNode }) => (
+//   <CLink
+//     px={2}
+//     py={1}
+//     rounded={"md"}
+//     _hover={{
+//       textDecoration: "none",
+//       bg: useColorModeValue("gray.200", "gray.700"),
+//     }}
+//     href={"#"}
+//   >
+//     {children}
+//   </CLink>
+// );
+
 // const Home: NextPage = () => {
+//   const { colorMode, toggleColorMode } = useColorMode();
+//   const { isOpen, onOpen, onClose } = useDisclosure();
+//   const { data, status } = useSession();
+
 //   return (
 //     <div>
-//       <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
-//         <div className="container flex flex-wrap justify-between items-center mx-auto">
-//           <a href="#" className="flex">
-//             {/* <svg
-//             className="mr-3 h-10"
-//             viewBox="0 0 52 72"
-//             fill="none"
-//             xmlns="http://www.w3.org/2000/svg"
-//           >
-//             <path
-//               d="M1.87695 53H28.7791C41.5357 53 51.877 42.7025 51.877 30H24.9748C12.2182 30 1.87695 40.2975 1.87695 53Z"
-//               fill="#76A9FA"
-//             ></path>
-//             <path
-//               d="M0.000409561 32.1646L0.000409561 66.4111C12.8618 66.4111 23.2881 55.9849 23.2881 43.1235L23.2881 8.87689C10.9966 8.98066 1.39567 19.5573 0.000409561 32.1646Z"
-//               fill="#A4CAFE"
-//             ></path>
-//             <path
-//               d="M50.877 5H23.9748C11.2182 5 0.876953 15.2975 0.876953 28H27.7791C40.5357 28 50.877 17.7025 50.877 5Z"
-//               fill="#1C64F2"
-//             ></path>
-//           </svg> */}
+//       <Box bg={useColorModeValue("gray.100", "gray.500")} px={4}>
+//         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
+//           <Box>
+//             <Image
+//               src="https://ik.imagekit.io/pjps5pyjhri/event_timeline_URVq62Y_k.png?ik-sdk-version=javascript-1.4.3&updatedAt=1643531375922"
+//               alt="Logo"
+//               width="220"
+//               height="220"
+//             />
+//           </Box>
 
-//             {/* <Image
-//             src={"https://ik.imagekit.io/pjps5pyjhri/yowwxegx_0_TJseu859V.png?ik-sdk-version=javascript-1.4.3&updatedAt=1643392341883"}
-//             alt="logo"
-//             height={100}
-//             width={80}
-//           /> */}
-//             <span className="self-center text-lg font-black whitespace-nowrap dark:text-white border-solid border-slate-100 hover:text-cyan-400">
-//               EventLiners
-//             </span>
-//           </a>
-//           <div className="flex md:order-2">
-//             <button
-//               type="button"
-//               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-//             >
-//               Get started
-//             </button>
-//             <button
-//               data-collapse-toggle="my-menu"
-//               type="button"
-//               className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-//               aria-controls="mobile-menu-4"
-//               aria-expanded="false"
-//             >
-//               <span className="sr-only">Open main menu</span>
-//               <svg
-//                 className="w-6 h-6"
-//                 fill="currentColor"
-//                 viewBox="0 0 20 20"
-//                 xmlns="http://www.w3.org/2000/svg"
-//               >
-//                 <path
-//                   fillRule="evenodd"
-//                   d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-//                   clipRule="evenodd"
-//                 ></path>
-//               </svg>
-//               <svg
-//                 className="hidden w-6 h-6"
-//                 fill="currentColor"
-//                 viewBox="0 0 20 20"
-//                 xmlns="http://www.w3.org/2000/svg"
-//               >
-//                 <path
-//                   fillRule="evenodd"
-//                   d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-//                   clipRule="evenodd"
-//                 ></path>
-//               </svg>
-//             </button>
-//           </div>
-//           <div
-//             className="hidden justify-between items-center w-full md:flex md:w-auto md:order-1"
-//             id="my-menu"
-//           >
-//             <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
-//               <li>
-//                 <a
-//                   href="#"
-//                   className="block py-2 pr-4 pl-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white"
-//                   aria-current="page"
+//           <Flex alignItems={"center"}>
+//             <Stack direction={"row"} spacing={7}>
+//               <Button onClick={toggleColorMode}>
+//                 {colorMode === "light" ? (
+//                   <MoonIcon className="h-5 w-5 text-green-500" />
+//                 ) : (
+//                   <SunIcon className="h-5 w-5 text-gold-500" />
+//                 )}
+//               </Button>
+//               {status === "authenticated" ? (
+//                 <Menu>
+//                   <MenuButton
+//                     as={Button}
+//                     rounded={"full"}
+//                     variant={"link"}
+//                     cursor={"pointer"}
+//                     minW={0}
+//                   >
+//                     <Avatar
+//                       size={"sm"}
+//                       src={`https://avatars.dicebear.com/api/initials/${data?.user?.name}.svg`}
+//                     />
+//                   </MenuButton>
+//                   <MenuList alignItems={"center"}>
+//                     <br />
+//                     <Center>
+//                       <Avatar
+//                         size={"2xl"}
+//                         src={
+//                           `https://avatars.dicebear.com/api/initials/${data?.user?.name}.svg`
+//                         }
+//                       />
+//                     </Center>
+//                     <br />
+//                     <Center>
+//                       <p>{data?.user?.name}</p>
+//                     </Center>
+//                     <br />
+//                     <MenuDivider />
+//                     <MenuItem>Your Servers</MenuItem>
+//                     <MenuItem>Account Settings</MenuItem>
+//                     <MenuItem onClick={() => signOut()}>Logout</MenuItem>
+//                   </MenuList>
+//                 </Menu>
+//               ) : (
+//                 <Button
+//                   display={{ base: "none", md: "inline-flex" }}
+//                   fontSize={"sm"}
+//                   fontWeight={600}
+//                   color={"white"}
+//                   bg={"blue.400"}
+//                   href={"#"}
+//                   _hover={{
+//                     bg: "blue.300",
+//                   }}
+//                   onClick={() => signIn()}
 //                 >
-//                   Home
-//                 </a>
-//               </li>
-//               <li>
-//                 <a
-//                   href="#"
-//                   className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-//                 >
-//                   About
-//                 </a>
-//               </li>
-//               <li>
-//                 <a
-//                   href="#"
-//                   className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-//                 >
-//                   Services
-//                 </a>
-//               </li>
-//               <li>
-//                 <a
-//                   href="#"
-//                   className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-//                 >
-//                   Contact
-//                 </a>
-//               </li>
-//             </ul>
-//           </div>
-//         </div>
-//       </nav>
+//                   Sign In
+//                 </Button>
+//               )}
+//             </Stack>
+//           </Flex>
+//         </Flex>
+//       </Box>
 //     </div>
 //   );
 // };
-
-export default Home;
+// export default Home;
