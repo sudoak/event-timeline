@@ -1,7 +1,23 @@
+import { useFormik } from "formik";
 import type { NextPage } from "next";
+import * as yup from "yup";
 import Navbar from "../components/navbar";
 
 const Index: NextPage = () => {
+  const formik = useFormik({
+    initialValues: {
+      eventCode: "",
+      password: "",
+    },
+    validationSchema: yup.object({
+      eventCode: yup.string().max(8, "Must be less than 8 characters"),
+      password: yup.string().max(8, "Must be at least 8 characters"),
+    }),
+    onSubmit: async (values) => {
+      console.log(values);
+    },
+  });
+
   return (
     <div>
       <Navbar></Navbar>
@@ -22,33 +38,53 @@ const Index: NextPage = () => {
               <h2>Credentials</h2>
             </div>
             <div className="card-body">
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Event Code</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="Event Code"
-                  className="input input-bordered"
-                />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="password"
-                  className="input input-bordered"
-                />
-              </div>
-              <div className="form-control mt-6">
-                <input
-                  type="button"
-                  value="Check"
-                  className="btn border-none bg-teal-500"
-                />
-              </div>
+              <form onSubmit={formik.handleSubmit}>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Event Code</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Event Code"
+                    name="eventCode"
+                    id="eventCode"
+                    value={formik.values.eventCode}
+                    onChange={formik.handleChange}
+                    className="input input-bordered"
+                    onBlur={formik.handleBlur}
+                    autoComplete="off"
+                  />
+                  {formik.touched.eventCode && formik.errors.eventCode ? (
+                    <p className="text-xs text-red-500">{formik.errors.eventCode}</p>
+                  ) : null}
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Password</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Password"
+                    name="password"
+                    id="password"
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    className="input input-bordered"
+                    onBlur={formik.handleBlur}
+                    autoComplete="off"
+                  />
+                  {formik.touched.password && formik.errors.password ? (
+                    <p className="text-xs text-red-500">{formik.errors.password}</p>
+                  ) : null}
+                </div>
+                <div className="form-control mt-6">
+                  <input
+                    type="submit"
+                    value="Check"
+                    className="btn border-none bg-teal-500"
+                  />
+                </div>
+              </form>
             </div>
           </div>
         </div>

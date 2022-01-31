@@ -306,35 +306,24 @@ interface NavItem {
 }
 
 const NAV_ITEMS: Array<NavItem> = [
+  // {
+  //   label: "Events",
+  //   children: [
+  //     {
+  //       label: "Inventory",
+  //       subLabel: "Get the needed things",
+  //       href: "#",
+  //     },
+  //     {
+  //       label: "Time Line",
+  //       subLabel: "Keep you updated",
+  //       href: "/timeline",
+  //     },
+  //   ],
+  // },
   {
     label: "Events",
-    children: [
-      {
-        label: "Inventory",
-        subLabel: "Get the needed things",
-        href: "#",
-      },
-      {
-        label: "Time Line",
-        subLabel: "Keep you updated",
-        href: "/timeline",
-      },
-    ],
-  },
-  {
-    label: "Find Work",
-    children: [
-      {
-        label: "Job Board",
-        subLabel: "Find your dream design job",
-        href: "#",
-      },
-      {
-        label: "Freelance Projects",
-        subLabel: "An exclusive list for contract work",
-        href: "#",
-      },
-    ],
+    href: "/events",
   },
   {
     label: "About Us",

@@ -4,7 +4,7 @@ CREATE TABLE `User` (
     `name` VARCHAR(191) NOT NULL,
     `email` VARCHAR(191) NOT NULL,
     `profilePic` VARCHAR(191) NOT NULL,
-    `contact` INTEGER NOT NULL,
+    `contact` VARCHAR(191) NOT NULL,
     `address` VARCHAR(191) NULL,
     `pincode` INTEGER NULL,
     `gst` VARCHAR(191) NULL,
@@ -24,7 +24,7 @@ CREATE TABLE `Event` (
     `startDate` DATETIME(3) NOT NULL,
     `endDate` DATETIME(3) NOT NULL,
     `userId` INTEGER NOT NULL,
-    `status` ENUM('IN_PROGRESS', 'QUOTATION_GIVEN', 'COMPLETED') NOT NULL DEFAULT 'QUOTATION_GIVEN',
+    `status` ENUM('IN_PROGRESS', 'IN_FUTURE', 'QUOTATION_GIVEN', 'COMPLETED') NOT NULL DEFAULT 'QUOTATION_GIVEN',
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
@@ -58,7 +58,6 @@ CREATE TABLE `Decoration` (
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
-    UNIQUE INDEX `Decoration_eventId_key`(`eventId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -67,6 +66,20 @@ CREATE TABLE `DecorationMeta` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `imageUrl` VARCHAR(191) NOT NULL,
     `category` ENUM('IN', 'OUT', 'CAR', 'BEDROOM') NOT NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Timeline` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `eventId` INTEGER NOT NULL,
+    `name` VARCHAR(191) NOT NULL,
+    `desc` VARCHAR(191) NOT NULL,
+    `status` ENUM('IN_FUTURE', 'COMPLETED', 'IN_PROGRESS') NOT NULL DEFAULT 'IN_FUTURE',
+    `pics` JSON NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
@@ -84,3 +97,6 @@ ALTER TABLE `Decoration` ADD CONSTRAINT `Decoration_eventId_fkey` FOREIGN KEY (`
 
 -- AddForeignKey
 ALTER TABLE `Decoration` ADD CONSTRAINT `Decoration_decorationId_fkey` FOREIGN KEY (`decorationId`) REFERENCES `DecorationMeta`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Timeline` ADD CONSTRAINT `Timeline_eventId_fkey` FOREIGN KEY (`eventId`) REFERENCES `Event`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

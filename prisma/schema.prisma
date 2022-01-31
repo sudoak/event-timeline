@@ -12,7 +12,7 @@ datasource db {
 }
 
 model User {
-  id         Int      @id @unique
+  id         String   @id @unique
   name       String
   email      String   @unique
   profilePic String
@@ -32,12 +32,29 @@ model Event {
   startDate     DateTime
   endDate       DateTime
   User          User               @relation(fields: [userId], references: [id])
-  userId        Int
+  userId        String
   status        EventStatus        @default(QUOTATION_GIVEN)
   inventory     ExtendedInventory?
-  decoration   Decoration[]
+  decoration    Decoration[]
+  timeline      Timeline[]
+  password      String             @default("123456")
+  client        Client?
   createdAt     DateTime           @default(now())
   updatedAt     DateTime           @updatedAt
+}
+
+model Client {
+  id      Int   @id @default(autoincrement())
+  event   Event @relation(fields: [eventId], references: [id])
+  eventId Int   @unique
+  clientName String
+  contact String
+  groomName String?
+  brideName String?
+  fatherName String?
+  motherName String?
+  retireName String?
+  birthDayName String?
 }
 
 model ExtendedInventory {
@@ -58,7 +75,7 @@ model ExtendedInventory {
 
 model Decoration {
   id             Int            @id @default(autoincrement())
-  eventId        Int            @unique
+  eventId        Int
   Event          Event          @relation(fields: [eventId], references: [id])
   decorationId   Int
   DecorationMeta DecorationMeta @relation(fields: [decorationId], references: [id])
@@ -75,9 +92,23 @@ model DecorationMeta {
   Decoration Decoration[]
 }
 
+model Timeline {
+  id        Int            @id @default(autoincrement())
+  event     Event          @relation(fields: [eventId], references: [id])
+  eventId   Int
+  name      String
+  desc      String
+  status    TimelineStatus @default(IN_FUTURE)
+  pics      Json
+  datetime  DateTime       @default(now())
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+}
+
 // Enums
 enum EventStatus {
   IN_PROGRESS
+  IN_FUTURE
   QUOTATION_GIVEN
   COMPLETED
 }

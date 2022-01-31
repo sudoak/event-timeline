@@ -11,7 +11,7 @@ export default async function handler(
       const data = await prisma.decoration.create({
         data: req.body,
       });
-      res.json(data);
+      return res.json(data);
     }
     res.status(200).json({ message: "lol" });
   } catch (error) {
