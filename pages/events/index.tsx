@@ -2,6 +2,7 @@ import { getSession } from "next-auth/react";
 import { GetServerSidePropsContext } from "next";
 import axios from "axios";
 import { Center, Spinner } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import Navbar from "../../components/navbar";
 import { eventInterface } from "../../lib/interfaces/eventInterface";
 
@@ -9,7 +10,7 @@ interface props {
   events: eventInterface[];
 }
 const Event: React.FC<props> = ({ events }) => {
-  console.log(events);
+  const router = useRouter();
   if (events.length === 0) {
     return (
       <div>
@@ -62,7 +63,14 @@ const Event: React.FC<props> = ({ events }) => {
                 <td>{new Date(event.endDate).toLocaleDateString()}</td>
                 <td>{event.status}</td>
                 <td>{event.password}</td>
-                <tr><button className="btn bg-cyan-500  mx-auto p-2 m-2">More</button></tr>
+                <tr>
+                  <button
+                    className="btn bg-cyan-500  mx-auto p-2 m-2"
+                    onClick={() => router.push(`/events/${event.id}`)}
+                  >
+                    More
+                  </button>
+                </tr>
               </tr>
             ))}
           </tbody>

@@ -8,3 +8,9 @@ export interface eventInterface{
     status: string
     password: string
 }
+
+export interface EventInterfaceDetail extends eventInterface {
+   inventory: Object
+   decoration: Array<Object>
+   timeline: Array<Object> 
+}

@@ -1,5 +1,4 @@
 import { NextApiResponse, NextApiRequest } from "next";
-
 import { prisma } from "../../../lib/db";
 
 export default async function handler(
@@ -8,8 +7,9 @@ export default async function handler(
 ) {
   try {
     const eventId = req.query.id;
+    
     const data = await prisma.event.findFirst({
-      where: { id: Number(eventId) },
+      where: { id: Number(eventId[0]) },
       include: {
         inventory: true,
         timeline: true,

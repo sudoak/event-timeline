@@ -10,8 +10,8 @@ const Index: NextPage = () => {
       password: "",
     },
     validationSchema: yup.object({
-      eventCode: yup.string().max(8, "Must be less than 8 characters"),
-      password: yup.string().max(8, "Must be at least 8 characters"),
+      eventCode: yup.string().max(8, "Must be less than 8 characters").required(),
+      password: yup.string().max(8, "Must be at least 8 characters").required(),
     }),
     onSubmit: async (values) => {
       console.log(values);
