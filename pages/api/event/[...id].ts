@@ -6,17 +6,19 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
+    console.log(prisma);
+    
     const eventId = req.query.id;
     const data = await prisma.event.findFirst({
       where: { id: Number(eventId[0]) },
       include: {
         inventory: true,
-        // timeline: true,
-        // decoration: {
-        //   include: {
-        //     DecorationMeta: true,
-        //   },
-        // },
+        timeline: true,
+        decoration: {
+          include: {
+            DecorationMeta: true,
+          },
+        },
       },
     });
     res.json(data);
