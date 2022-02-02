@@ -25,7 +25,11 @@ export default async function handler(
     if (req.method === "PATCH") {
       data = await prisma.event.update({
         where: { id: req.body.id },
-        data: req.body,
+        data: {
+          ...req.body,
+          startDate: new Date(req.body.startDate),
+          endDate: new Date(req.body.endDate),
+        },
       });
     }
     res.status(200).json({ message: "lol" });
