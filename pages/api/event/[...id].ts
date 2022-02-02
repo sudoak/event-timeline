@@ -12,11 +12,7 @@ export default async function handler(
       include: {
         inventory: true,
         timeline: true,
-        decoration: {
-          include: {
-            DecorationMeta: true,
-          },
-        },
+        decoration: true
       },
     });
     res.json(data);
