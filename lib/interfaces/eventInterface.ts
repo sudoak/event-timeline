@@ -29,5 +29,13 @@ export interface EventInterfaceDetail extends eventInterface {
     basin: number;
   };
   decoration: Array<Object>;
-  timeline: Array<Object>;
+  timeline: [{
+    id: number;
+    eventId: number;
+    name: string;
+    desc: string;
+    status: string;
+    pics: [{ url: string }];
+    datetime: Date;
+  }]
 }

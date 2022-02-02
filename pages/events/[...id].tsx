@@ -24,6 +24,7 @@ import {
   Heading,
   Divider,
   useToast,
+  MenuDivider,
 } from "@chakra-ui/react";
 import Navbar from "../../components/navbar";
 import { ParsedUrlQuery } from "querystring";
@@ -31,6 +32,8 @@ import { EventInterfaceDetail } from "../../lib/interfaces/eventInterface";
 import { ErrorMessage, useFormik } from "formik";
 import * as yup from "yup";
 import Inventory from "../../components/inventory";
+import Image from "next/image";
+import Timeline from "../../components/timeline";
 interface props {
   event: EventInterfaceDetail;
 }
@@ -144,6 +147,14 @@ const EventIndex: React.FC<props> = ({ event }) => {
     }),
   });
 
+  const formikDecoration = useFormik({
+    initialValues: {
+      eventId: event.id,
+      decorationId: null,
+    },
+    onSubmit: async (values) => {},
+    validationSchema: yup.object(),
+  });
   console.log(event);
   return (
     <div>
@@ -575,7 +586,28 @@ const EventIndex: React.FC<props> = ({ event }) => {
               </div>
             </TabPanel>
             <TabPanel>
-              <p>3two!</p>
+              {/* <div className="flex md:flex-col sm:flex-col space-x-2 mx-auto scroll-smooth md:h-screen sm:h-screen">
+                <h1 className="hidden md:block text-center font-bold text-lg text-cyan-700 bg-gray-100 ">
+                  Timeline
+                </h1>
+                {/*<form
+                  key="Inventory"
+                  onSubmit={formikInventory.handleSubmit}
+                  className="flex flex-wrap md:space-x-5 sm:flex:col md:w-full mx-auto sm:w-full sm:h-full"
+                ></form>
+              </div> */}
+              <div className="grid md:grid-cols-4 md:gap-4 text-center sm:grid-cols-1 sm:gap-1">
+                <Timeline info={event.timeline[0]}/>
+                <div>01</div>
+                <div>01</div>
+                <div>01</div>
+                <div>01</div>
+                <div>01</div>
+                <div>01</div>
+                <div>01</div>
+                <div>01</div>
+                <div>09</div>
+              </div>
             </TabPanel>
           </TabPanels>
         </Tabs>

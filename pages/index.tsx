@@ -10,7 +10,10 @@ const Index: NextPage = () => {
       password: "",
     },
     validationSchema: yup.object({
-      eventCode: yup.string().max(8, "Must be less than 8 characters").required(),
+      eventCode: yup
+        .string()
+        .max(8, "Must be less than 8 characters")
+        .required(),
       password: yup.string().max(8, "Must be at least 8 characters").required(),
     }),
     onSubmit: async (values) => {
@@ -27,11 +30,18 @@ const Index: NextPage = () => {
             <h1 className="mb-5 text-3xl font-bold text-teal-500">
               Hello there
             </h1>
-            <p className="mb-5 text-justify">
-              We are a platform that provides a bridge between a Event Manager
-              and yourself. You can view the full Timelines and keep yourself
-              updated with what is happening on your event field.
-            </p>
+            <blockquote className="space-x-4 text-2xl font-semibold italic text-center text-slate-900">
+            We are a platform that provides a bridge between a{" "}
+              <span className="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
+                <span className="relative text-white">Event</span>
+              </span>
+              {" "}Manager and yourself. You can view the full
+              <span className="before:block before:absolute before:-inset-1 before:-skew-y-3 before:bg-pink-500 relative inline-block">
+                <span className="relative text-white">Timelines</span>
+              </span>{" "}
+              and keep yourself updated with what is happening on your event
+              field.
+            </blockquote>
           </div>
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
             <div className="card-body mx-auto text-extrabold text-xl">
@@ -55,7 +65,9 @@ const Index: NextPage = () => {
                     autoComplete="off"
                   />
                   {formik.touched.eventCode && formik.errors.eventCode ? (
-                    <p className="text-xs text-red-500">{formik.errors.eventCode}</p>
+                    <p className="text-xs text-red-500">
+                      {formik.errors.eventCode}
+                    </p>
                   ) : null}
                 </div>
                 <div className="form-control">
@@ -74,7 +86,9 @@ const Index: NextPage = () => {
                     autoComplete="off"
                   />
                   {formik.touched.password && formik.errors.password ? (
-                    <p className="text-xs text-red-500">{formik.errors.password}</p>
+                    <p className="text-xs text-red-500">
+                      {formik.errors.password}
+                    </p>
                   ) : null}
                 </div>
                 <div className="form-control mt-6">
