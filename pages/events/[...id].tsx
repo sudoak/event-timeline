@@ -30,15 +30,18 @@ import { ParsedUrlQuery } from "querystring";
 import { EventInterfaceDetail } from "../../lib/interfaces/eventInterface";
 import { ErrorMessage, useFormik } from "formik";
 import * as yup from "yup";
+import Inventory from "../../components/inventory";
 interface props {
   event: EventInterfaceDetail;
 }
 const EventIndex: React.FC<props> = ({ event }) => {
   const [eventState, setEventState] = useState(event);
+  const [inventoryState, setInventoryState] = useState(event?.inventory);
   const toast = useToast();
 
   const formik = useFormik({
     initialValues: {
+      id: eventState.id,
       eventName: eventState.eventName,
       referenceName: eventState?.referenceName || "",
       userId: eventState.userId,
@@ -46,10 +49,11 @@ const EventIndex: React.FC<props> = ({ event }) => {
       password: eventState.password,
       startDate: new Date(eventState.startDate),
       endDate: new Date(eventState.endDate),
+      amount: eventState.amount,
     },
     onSubmit: async (values) => {
       try {
-        const { data } = await axios.post("/api/event", values);
+        const { data } = await axios.patch("/api/event", values);
         setEventState(data);
         toast({
           position: "top-right",
@@ -85,6 +89,62 @@ const EventIndex: React.FC<props> = ({ event }) => {
     }),
   });
 
+  const formikInventory = useFormik({
+    initialValues: {
+      eventId: eventState.id,
+      pendal: {
+        size4: event?.inventory?.pendal?.size4 || 0,
+        size2: event?.inventory?.pendal?.size2 || 0,
+      },
+      table: {
+        buffetCloth: event?.inventory?.table?.buffetCloth || 0,
+        round: event?.inventory?.table?.round || 0,
+      },
+      plates: event?.inventory?.plates || 0,
+      buckets: event?.inventory?.buckets || 0,
+      washBasin: event?.inventory?.washBasin || 0,
+      chairs: event?.inventory?.chairs || 0,
+      spoons: event?.inventory?.spoons || 0,
+      basin: event?.inventory?.basin || 0,
+    },
+    onSubmit: async (values) => {
+      let msg;
+
+      try {
+        const { data } = await axios.post("/api/inventory", values);
+        console.log(data);
+        msg = "Successfully Created/Updated";
+      } catch (error) {
+        msg = "Something Went Wrong";
+      }
+      toast({
+        position: "top-right",
+        title: "Action",
+        description: msg,
+        status: "info",
+        duration: 9000,
+        isClosable: true,
+      });
+    },
+    validationSchema: yup.object({
+      pendal: yup.object().shape({
+        size4: yup.number().required(),
+        size2: yup.number().required(),
+      }),
+      table: yup.object().shape({
+        buffetCloth: yup.number().required(),
+        round: yup.number().required(),
+      }),
+      plates: yup.number().required(),
+      buckets: yup.number().required(),
+      washBasin: yup.number().required(),
+      chairs: yup.number().required(),
+      spoons: yup.number().required(),
+      basin: yup.number().required(),
+    }),
+  });
+
+  console.log(event);
   return (
     <div>
       <Navbar />
@@ -129,6 +189,7 @@ const EventIndex: React.FC<props> = ({ event }) => {
                   Event Details
                 </h1>
                 <form
+                  key="Event"
                   onSubmit={formik.handleSubmit}
                   className="flex flex-col md:w-1/3 mx-auto sm:w-full sm:h-full"
                 >
@@ -182,7 +243,7 @@ const EventIndex: React.FC<props> = ({ event }) => {
                     </label>
                     <select
                       className="border-2 p-1"
-                      name="color"
+                      name="status"
                       value={formik.values.status}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
@@ -203,23 +264,22 @@ const EventIndex: React.FC<props> = ({ event }) => {
 
                   <div className="form-control">
                     <label className="label">
-                      <span className="label-text">Password</span>
+                      <span className="label-text">Amount</span>
                     </label>
                     <input
                       type="text"
-                      placeholder="Password"
-                      name="password"
-                      id="password"
-                      value={formik.values.password}
+                      placeholder="amount"
+                      name="amount"
+                      id="amount"
+                      value={formik.values.amount}
                       onChange={formik.handleChange}
                       className="input input-bordered  shadow-inner shadow-zinc-700"
                       onBlur={formik.handleBlur}
                       autoComplete="off"
-                      disabled={true}
                     />
-                    {formik.touched.password && formik.errors.password ? (
+                    {formik.touched.amount && formik.errors.amount ? (
                       <p className="text-xs text-red-500">
-                        {formik.errors.password}
+                        {formik.errors.amount}
                       </p>
                     ) : null}
                   </div>
@@ -273,10 +333,246 @@ const EventIndex: React.FC<props> = ({ event }) => {
               </div>
             </TabPanel>
             <TabPanel>
-              <p>two!</p>
+              <div className="flex md:flex-col sm:flex-col space-x-2 mx-auto scroll-smooth md:h-screen sm:h-screen">
+                <h1 className="hidden md:block text-center font-bold text-lg text-cyan-700 bg-gray-100 ">
+                  Inventory Details
+                </h1>
+                <form
+                  key="Inventory"
+                  onSubmit={formikInventory.handleSubmit}
+                  className="flex flex-wrap md:space-x-5 sm:flex:col md:w-full mx-auto sm:w-full sm:h-full"
+                >
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Pendal 40x40</span>
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="Pendal"
+                      name="pendal.size4"
+                      id="pendal.size4"
+                      required
+                      value={formikInventory.values.pendal.size4}
+                      onChange={formikInventory.handleChange}
+                      className="input input-bordered w-full"
+                      onBlur={formik.handleBlur}
+                      autoComplete="off"
+                    />
+                    {formikInventory.touched.pendal?.size4 &&
+                    formikInventory.values.pendal.size4 ? (
+                      <p className="text-xs text-red-500"></p>
+                    ) : null}
+                  </div>
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Pendal 20x40</span>
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="Pendal"
+                      name="pendal.size2"
+                      id="pendal.size2"
+                      required
+                      value={formikInventory.values.pendal?.size2}
+                      onChange={formikInventory.handleChange}
+                      className="input input-bordered w-full"
+                      onBlur={formik.handleBlur}
+                      autoComplete="off"
+                    />
+                    {formikInventory.values.pendal?.size2 &&
+                    formikInventory.values.pendal?.size2 ? (
+                      <p className="text-xs text-red-500"></p>
+                    ) : null}
+                  </div>
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Table Buffet-Cloth</span>
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="Buffet Cloth"
+                      name="table.buffetCloth"
+                      id="table.buffetCloth"
+                      required
+                      value={formikInventory.values?.table.buffetCloth}
+                      onChange={formikInventory.handleChange}
+                      className="input input-bordered w-full"
+                      onBlur={formik.handleBlur}
+                      autoComplete="off"
+                    />
+                    {formikInventory.values.table.buffetCloth &&
+                    formikInventory.values.table.buffetCloth ? (
+                      <p className="text-xs text-red-500"></p>
+                    ) : null}
+                  </div>
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Table Round</span>
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="Round "
+                      name="table.round"
+                      id="table.round"
+                      required
+                      value={formikInventory.values?.table.round}
+                      onChange={formikInventory.handleChange}
+                      className="input input-bordered w-full"
+                      onBlur={formik.handleBlur}
+                      autoComplete="off"
+                    />
+                    {formikInventory.values.table.round &&
+                    formikInventory.values.table.round ? (
+                      <p className="text-xs text-red-500"></p>
+                    ) : null}
+                  </div>
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Plates</span>
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="plates "
+                      name="plates"
+                      id="plates"
+                      required
+                      value={formikInventory.values?.plates}
+                      onChange={formikInventory.handleChange}
+                      className="input input-bordered w-full"
+                      onBlur={formik.handleBlur}
+                      autoComplete="off"
+                    />
+                    {formikInventory.values.plates &&
+                    formikInventory.values.plates ? (
+                      <p className="text-xs text-red-500"></p>
+                    ) : null}
+                  </div>
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Buckets</span>
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="buckets "
+                      name="buckets"
+                      id="buckets"
+                      required
+                      value={formikInventory.values?.buckets}
+                      onChange={formikInventory.handleChange}
+                      className="input input-bordered w-full"
+                      onBlur={formik.handleBlur}
+                      autoComplete="off"
+                    />
+                    {formikInventory.values.buckets &&
+                    formikInventory.values.buckets ? (
+                      <p className="text-xs text-red-500"></p>
+                    ) : null}
+                  </div>
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">WashBasin</span>
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="washBasin "
+                      name="washBasin"
+                      id="washBasin"
+                      required
+                      value={formikInventory.values?.washBasin}
+                      onChange={formikInventory.handleChange}
+                      className="input input-bordered w-full"
+                      onBlur={formik.handleBlur}
+                      autoComplete="off"
+                    />
+                    {formikInventory.values.washBasin &&
+                    formikInventory.values.washBasin ? (
+                      <p className="text-xs text-red-500"></p>
+                    ) : null}
+                  </div>
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Chairs</span>
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="Chairs "
+                      name="chairs"
+                      id="chairs"
+                      required
+                      value={formikInventory.values?.chairs}
+                      onChange={formikInventory.handleChange}
+                      className="input input-bordered w-full"
+                      onBlur={formik.handleBlur}
+                      autoComplete="off"
+                    />
+                    {formikInventory.values.chairs &&
+                    formikInventory.values.chairs ? (
+                      <p className="text-xs text-red-500"></p>
+                    ) : null}
+                  </div>
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Spoons</span>
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="Spoons "
+                      name="spoons"
+                      id="spoons"
+                      required
+                      value={formikInventory.values?.spoons}
+                      onChange={formikInventory.handleChange}
+                      className="input input-bordered w-full"
+                      onBlur={formik.handleBlur}
+                      autoComplete="off"
+                    />
+                    {formikInventory.values.spoons &&
+                    formikInventory.values.spoons ? (
+                      <p className="text-xs text-red-500"></p>
+                    ) : null}
+                  </div>
+                  <div className="form-control">
+                    <label className="label">
+                      <span className="label-text">Basin</span>
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="Basin "
+                      name="basin"
+                      id="basin"
+                      required
+                      value={formikInventory.values?.basin}
+                      onChange={formikInventory.handleChange}
+                      className="input input-bordered w-full"
+                      onBlur={formik.handleBlur}
+                      autoComplete="off"
+                    />
+                    {formikInventory.values.basin &&
+                    formikInventory.values.basin ? (
+                      <p className="text-xs text-red-500"></p>
+                    ) : null}
+                  </div>
+                  <div className="form-control mt-6 w-full ">
+                    <input
+                      type="submit"
+                      value="Submit"
+                      className="btn border-none bg-teal-500"
+                    />
+                  </div>
+                </form>
+              </div>
             </TabPanel>
             <TabPanel>
-              <p>2two!</p>
+              <div className="flex md:flex-col sm:flex-col space-x-2 mx-auto scroll-smooth md:h-screen sm:h-screen">
+                <h1 className="hidden md:block text-center font-bold text-lg text-cyan-700 bg-gray-100 ">
+                  Decoration
+                </h1>
+                <form
+                  key="Inventory"
+                  onSubmit={formikInventory.handleSubmit}
+                  className="flex flex-wrap md:space-x-5 sm:flex:col md:w-full mx-auto sm:w-full sm:h-full"
+                ></form>
+              </div>
             </TabPanel>
             <TabPanel>
               <p>3two!</p>

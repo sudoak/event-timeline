@@ -31,6 +31,7 @@ model Event {
   referenceName String?
   startDate     DateTime
   endDate       DateTime
+  amount        Int
   User          User               @relation(fields: [userId], references: [id])
   userId        String
   status        EventStatus        @default(QUOTATION_GIVEN)
@@ -44,22 +45,22 @@ model Event {
 }
 
 model Client {
-  id      Int   @id @default(autoincrement())
-  event   Event @relation(fields: [eventId], references: [id])
-  eventId Int   @unique
-  clientName String
-  contact String
-  groomName String?
-  brideName String?
-  fatherName String?
-  motherName String?
-  retireName String?
+  id           Int     @id @default(autoincrement())
+  event        Event   @relation(fields: [eventId], references: [id])
+  eventId      Int     
+  clientName   String
+  contact      String
+  groomName    String?
+  brideName    String?
+  fatherName   String?
+  motherName   String?
+  retireName   String?
   birthDayName String?
 }
 
 model ExtendedInventory {
   id        Int      @id @default(autoincrement())
-  eventId   Int      @unique
+  eventId   Int
   pendal    Json
   table     Json
   plates    Int      @default(0)

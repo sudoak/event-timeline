@@ -9,6 +9,8 @@ export default async function handler(
   // console.log(prisma);
 
   try {
+    let data = null;
+    console.log(req.body)
     if (req.method === "POST") {
       const data = await prisma.event.create({
         data: {
@@ -18,6 +20,12 @@ export default async function handler(
         },
       });
       res.json(data);
+    }
+    if (req.method === "PATCH") {
+      data = await prisma.event.update({
+        where: { id: req.body.id },
+        data: req.body
+      })
     }
     res.status(200).json({ message: "lol" });
   } catch (error) {

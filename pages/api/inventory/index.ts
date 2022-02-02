@@ -7,8 +7,14 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const data = await prisma.extendedInventory.create({
-      data: req.body,
+    const data = await prisma.extendedInventory.upsert({
+      where: { eventId: req.body.eventId},
+      update: {
+        ...req.body
+      },
+      create: {
+        ...req.body
+      }
     });
     res.json(data);
   } catch (error) {

@@ -7,7 +7,6 @@ export default async function handler(
 ) {
   try {
     const eventId = req.query.id;
-    
     const data = await prisma.event.findFirst({
       where: { id: Number(eventId[0]) },
       include: {
@@ -15,7 +14,7 @@ export default async function handler(
         timeline: true,
         decoration: {
           include: {
-            DecorationMeta: true
+            DecorationMeta: true,
           },
         },
       },
