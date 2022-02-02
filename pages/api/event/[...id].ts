@@ -11,8 +11,12 @@ export default async function handler(
       where: { id: Number(eventId[0]) },
       include: {
         inventory: true,
-        timeline: true,
-        decoration: true
+        // timeline: true,
+        // decoration: {
+        //   include: {
+        //     DecorationMeta: true,
+        //   },
+        // },
       },
     });
     res.json(data);
