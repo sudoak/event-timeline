@@ -10,7 +10,7 @@ export default async function handler(
 
   try {
     let data = null;
-    console.log(req.body)
+    console.log(req.body);
     if (req.method === "POST") {
       const data = await prisma.event.create({
         data: {
@@ -20,12 +20,13 @@ export default async function handler(
         },
       });
       res.json(data);
+      return;
     }
     if (req.method === "PATCH") {
       data = await prisma.event.update({
         where: { id: req.body.id },
-        data: req.body
-      })
+        data: req.body,
+      });
     }
     res.status(200).json({ message: "lol" });
   } catch (error) {
