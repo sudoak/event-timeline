@@ -7,7 +7,16 @@ module.exports = {
     fontFamily: {
       sans: ['Roboto', 'sans-serif']
     },
-    extend: {},
+    extend: {
+      transitionProperty: {
+        height: 'height',
+      },
+      scale: {
+        300: '3',
+        200: '2'
+      },
+    },
   },
+  height: ['responsive', 'hover', 'focus'],
   plugins: [require('daisyui'), require('@tailwindcss/forms'),],
 }

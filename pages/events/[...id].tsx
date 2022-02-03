@@ -578,11 +578,35 @@ const EventIndex: React.FC<props> = ({ event }) => {
                 <h1 className="hidden md:block text-center font-bold text-lg text-cyan-700 bg-gray-100 ">
                   Decoration
                 </h1>
-                <form
+                {/* <form
                   key="Inventory"
                   onSubmit={formikInventory.handleSubmit}
                   className="flex flex-wrap md:space-x-5 sm:flex:col md:w-full mx-auto sm:w-full sm:h-full"
-                ></form>
+                ></form> */}
+                <div className="max-w-md md:w-full py-4 px-8 bg-white shadow-lg rounded-lg my-20">
+                  <div className="flex justify-center md:justify-end -mt-16">
+                    <img
+                      src="https://cdn.pixabay.com/photo/2013/07/12/17/47/test-pattern-152459_960_720.png"
+                      className="transition duration-500 ease-in-out h-20 transform md:hover:scale-300 hover:scale-200 object-cover rounded-b-md"
+                    />
+                  </div>
+                  <div>
+                    <h2 className="text-gray-800 text-3xl font-semibold">
+                      Design Tools
+                    </h2>
+                    <p className="mt-2 text-gray-600">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Quae dolores deserunt ea doloremque natus error, rerum
+                      quas odio quaerat nam ex commodi hic, suscipit in a
+                      veritatis pariatur minus consequuntur!
+                    </p>
+                  </div>
+                  <div className="flex justify-end mt-4">
+                    <a href="#" className="text-xl font-medium text-indigo-500">
+                      John Doe
+                    </a>
+                  </div>
+                </div>
               </div>
             </TabPanel>
             <TabPanel>
@@ -596,17 +620,53 @@ const EventIndex: React.FC<props> = ({ event }) => {
                   className="flex flex-wrap md:space-x-5 sm:flex:col md:w-full mx-auto sm:w-full sm:h-full"
                 ></form>
               </div> */}
-              <div className="grid md:grid-cols-4 md:gap-4 text-center sm:grid-cols-1 sm:gap-1">
-                <Timeline info={event.timeline[0]}/>
-                <div>01</div>
-                <div>01</div>
-                <div>01</div>
-                <div>01</div>
-                <div>01</div>
-                <div>01</div>
-                <div>01</div>
-                <div>01</div>
-                <div>09</div>
+              <div className="flex flex-col space-y-1 md:space-y-3">
+                <div className="card lg:card-side card-bordered border-pink-300 p-2">
+                  <figure>
+                    <Image
+                      alt="loading"
+                      height="250"
+                      width="400"
+                      src="https://ik.imagekit.io/pjps5pyjhri/event-timeline/undraw_Floating_re_xtcj_y_hS-a5jV.png?ik-sdk-version=javascript-1.4.3&updatedAt=1643908591656"
+                    />
+                  </figure>
+                  <div className="card-body">
+                    <h2 className="card-title">
+                      Horizontal
+                      <div className="badge mx-2">NEW</div>
+                    </h2>
+
+                    <p>
+                      Rerum reiciendis beatae tenetur excepturi aut pariatur est
+                      eos. Sit sit necessitatibus veritatis sed molestiae
+                      voluptates incidunt iure sapiente.
+                    </p>
+                    <div className="card-actions">
+                      <button className="btn btn-primary">Get Started</button>
+                      <button className="btn btn-ghost">More info</button>
+                    </div>
+                  </div>
+                </div>
+                <div className="card lg:card-side card-bordered">
+                  <figure>
+                    <img src="https://picsum.photos/id/1005/400/250" />
+                  </figure>
+                  <div className="card-body">
+                    <h2 className="card-title">
+                      Horizontal
+                      <div className="badge mx-2">NEW</div>
+                    </h2>
+                    <p>
+                      Rerum reiciendis beatae tenetur excepturi aut pariatur est
+                      eos. Sit sit necessitatibus veritatis sed molestiae
+                      voluptates incidunt iure sapiente.
+                    </p>
+                    <div className="card-actions">
+                      <button className="btn btn-primary">Get Started</button>
+                      <button className="btn btn-ghost">More info</button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </TabPanel>
           </TabPanels>
