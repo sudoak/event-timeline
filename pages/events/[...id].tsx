@@ -192,6 +192,12 @@ const EventIndex: React.FC<props> = ({ event }) => {
             >
               Timeline
             </Tab>
+            <Tab
+              _selected={{ color: "white", bg: "cyan.900" }}
+              borderBottom={"1px"}
+            >
+              Client
+            </Tab>
           </TabList>
           <TabPanels>
             <TabPanel border="1px" borderColor="gray.100">
@@ -668,6 +674,9 @@ const EventIndex: React.FC<props> = ({ event }) => {
                   </div>
                 </div>
               </div>
+            </TabPanel>
+            <TabPanel>
+              <Timeline info={event.timeline[0]}/>
             </TabPanel>
           </TabPanels>
         </Tabs>

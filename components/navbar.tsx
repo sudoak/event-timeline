@@ -326,10 +326,6 @@ const NAV_ITEMS: Array<NavItem> = [
     href: "/events",
   },
   {
-    label: "About Us",
-    href: "/about",
-  },
-  {
     label: "Contact Us",
     href: "/contact",
   },

@@ -25,7 +25,7 @@ const Inventory: React.FC<props> = ({ info }) => {
   console.log(info.pics);
 
   return (
-    <div className="flex flex-col border-2 md:p-8 sm:p-2">
+    <div className="flex border-2 p-2 md:max-w-md justify-center">
       {/* <h1 className="text-center font-bold text-lg text-cyan-700 bg-gray-100">
         Time Details
       </h1> */}
