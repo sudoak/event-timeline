@@ -675,7 +675,7 @@ const EventIndex: React.FC<props> = ({ event }) => {
                 </div>
               </div>
             </TabPanel>
-            <TabPanel>
+            <TabPanel className="flex justify-center p-2">
               <Timeline info={event.timeline[0]}/>
             </TabPanel>
           </TabPanels>

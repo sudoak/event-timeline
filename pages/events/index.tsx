@@ -14,6 +14,7 @@ import {
   Spinner,
   useDisclosure,
   useToast,
+  Progress,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Navbar from "../../components/navbar";
@@ -27,6 +28,7 @@ interface props {
 }
 const Event: React.FC<props> = ({ events }) => {
   const router = useRouter();
+  const [isLoading, setLoading] = useState(false);
   const [eventState, setEventState] = useState(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
@@ -47,8 +49,9 @@ const Event: React.FC<props> = ({ events }) => {
       endDate: "",
       amount: "",
     },
-    onSubmit: async (values) => {
+    onSubmit: async (values, actions) => {
       try {
+        setLoading(true);
         const { data } = await axios.post("/api/event", values);
         // setEventState(data);
         toast({
@@ -60,6 +63,7 @@ const Event: React.FC<props> = ({ events }) => {
           isClosable: true,
         });
         onClose();
+        actions.resetForm();
         router.push("/events");
       } catch (err) {
         toast({
@@ -71,6 +75,7 @@ const Event: React.FC<props> = ({ events }) => {
           isClosable: true,
         });
       }
+      setLoading(false);
     },
     validationSchema: yup.object({
       eventName: yup
@@ -124,6 +129,9 @@ const Event: React.FC<props> = ({ events }) => {
             <ModalHeader>New Event</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
+              {isLoading ? (
+                <Progress size="xs" isIndeterminate isAnimated hasStripe />
+              ) : null}
               <form
                 onSubmit={formik.handleSubmit}
                 className="flex flex-col  mx-auto sm:w-full sm:h-full"
@@ -283,6 +291,18 @@ const Event: React.FC<props> = ({ events }) => {
   return (
     <div>
       <Navbar />
+      {isLoading ? (
+        <Progress size="xs" isIndeterminate isAnimated hasStripe />
+      ) : null}
+      {/* <Center h="100px" color="white">
+        <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="blue.500"
+          size="xl"
+        />
+      </Center> */}
       <div className="text-3xl text-cyan-500 font-bold text-center">Event</div>
       <button
         onClick={onOpen}
@@ -316,14 +336,14 @@ const Event: React.FC<props> = ({ events }) => {
                 <td>{event.status}</td>
                 <td>{event.amount}</td>
                 <td>{event.password}</td>
-                <tr>
+                <td>
                   <button
                     className="btn bg-cyan-500  mx-auto p-2 m-2"
                     onClick={() => router.push(`/events/${event.id}`)}
                   >
                     More
                   </button>
-                </tr>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -341,6 +361,9 @@ const Event: React.FC<props> = ({ events }) => {
           <ModalHeader>New Event</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
+            {isLoading ? (
+              <Progress size="xs" isIndeterminate isAnimated hasStripe />
+            ) : null}
             <form
               onSubmit={formik.handleSubmit}
               className="flex flex-col  mx-auto sm:w-full sm:h-full"

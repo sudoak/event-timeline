@@ -25,25 +25,7 @@ const Inventory: React.FC<props> = ({ info }) => {
   console.log(info.pics);
 
   return (
-    <div className="flex border-2 p-2 md:max-w-md justify-center">
-      {/* <h1 className="text-center font-bold text-lg text-cyan-700 bg-gray-100">
-        Time Details
-      </h1> */}
-      <div className="flex flex-col">
-          {info.pics.length > 0
-            ? info.pics.map((pic) => {
-                <div>
-                  <Image
-                    src={pic.url}
-                    height="50px"
-                    width="50px"
-                    alt="timeline"
-                  />
-                  <p>{pic}</p>
-                </div>;
-              })
-            : null}
-        </div>
+    <div className="flex border-2 p-2 max-w-screen-xl md:w-1/3 justify-center">
       <form onSubmit={formik.handleSubmit} className="flex flex-col text-sm">
         <div className="form-control">
           <label className="label">
